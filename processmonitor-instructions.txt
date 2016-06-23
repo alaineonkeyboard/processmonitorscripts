@@ -1,0 +1,17 @@
+You need to start from a fresh install of Ubuntu 14.04 64-bit for your server.
+
+Once the server machine (or virtual machine) has finished installing, you can either create the user 'deploy' (automatically have root access) or you need to login with the maind account and create a user called 'deploy' with sudo access:
+
+$ sudo adduser deploy #input a password and just press enter on the other items
+
+$ sudo usermod deploy -G sudo
+
+$ sudo -u deploy bash
+
+$ sudo mkdir -p /home/deploy/webapps
+
+$ cd /home/deploy/webapps
+
+$ git clone https://github.com/atuaradil/processmonitorscripts.git processmonitorscripts
+
+$ sudo processmonitorscripts/processmonitor-setup.sh
