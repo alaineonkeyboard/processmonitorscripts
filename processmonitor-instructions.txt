@@ -1,10 +1,15 @@
-You need to start from a fresh install of Ubuntu 14.04 64-bit for your server, and the default user with sudo/root access
+Instructions for installing the webapp using a fresh install of Ubuntu 14.04 64-bit as your server, and using the default user with sudo/root access
+If MYSQL prompts for a root password, input 'rootpass'
 
+
+
+### START HERE
 # add to groups
 $ sudo usermod -a -G sudo,www-data,adm,rvm <user> # may need to logout,login
 
-$ sudo mkdir -p /var/www
-$ sudo chown -R root:root /var/www
+$ sudo mkdir -p /var/www/processmonitor
+
+$ cd /var/www/processmonitor
 
 # the script needed to install all the requirements is in git, so we should install git first
 
@@ -12,8 +17,6 @@ $ sudo apt-get -y install git
 
 $ sudo git clone https://github.com/atuaradil/processmonitorscripts.git /var/www/processmonitorscripts
 
-$ cd /var/www
-
-$ sudo processmonitorscripts/processmonitor-setup.sh
+$ sudo /var/www/processmonitorscripts/processmonitor-setup.sh
 
 # you may need to logout and login again after the installation has finished, due to access 

@@ -75,7 +75,7 @@ echo '#################################################'
 git clone https://github.com/atuaradil/processmonitor.git /var/www/processmonitor
 cd /var/www/processmonitor
 mkdir -p /var/www/processmonitor/shared/pids /var/www/processmonitor/shared/sockets /var/www/processmonitor/shared/log
-/var/www/processmonitor/bundle install
+bundle install
 
 echo '#################################################'
 echo '### create unicorn service config for the app'
@@ -102,10 +102,10 @@ sudo ln -s /etc/nginx/sites-available/processmonitor /etc/nginx/sites-enabled/pr
 echo '#################################################'
 echo '### install nginx and configure for the app'
 echo '#################################################'
-/var/www/processmonitor/rake db:create RAILS_ENV=production 
-/var/www/processmonitor/rake db:migrate RAILS_ENV=production 
-/var/www/processmonitor/rake db:seed RAILS_ENV=production 
-/var/www/processmonitor/rake assets:precompile RAILS_ENV=production 
+rake db:create RAILS_ENV=production 
+rake db:migrate RAILS_ENV=production 
+rake db:seed RAILS_ENV=production 
+rake assets:precompile RAILS_ENV=production 
 
 
 
