@@ -1,7 +1,7 @@
-You need to start from a fresh install of Ubuntu 14.04 64-bit for your server, and a user with sudo/root access
+You need to start from a fresh install of Ubuntu 14.04 64-bit for your server, and the default user with sudo/root access
 
 # add to groups
-$ sudo usermod -a -G sudo,www-data,adm <user> # may need a restart
+$ sudo usermod -a -G sudo,www-data,adm,rvm <user> # may need to logout,login
 
 $ sudo mkdir -p /var/www
 $ sudo chown -R root:root /var/www
@@ -15,3 +15,5 @@ $ sudo git clone https://github.com/atuaradil/processmonitorscripts.git /var/www
 $ cd /var/www
 
 $ sudo processmonitorscripts/processmonitor-setup.sh
+
+# you may need to logout and login again after the installation has finished, due to access 

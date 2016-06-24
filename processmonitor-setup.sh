@@ -36,7 +36,7 @@ echo '### install rvm, ruby, rails and bundler'
 echo '#################################################'
 gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 \curl -sSL https://get.rvm.io | bash -s stable
-source /usr/local/rvm/scripts/rvm
+source /etc/profile.d/rvm.sh
 rvm requirements
 rvm install 2.0.0
 rvm use 2.0.0 --default
@@ -74,8 +74,8 @@ echo '#################################################'
 
 git clone https://github.com/atuaradil/processmonitor.git /var/www/processmonitor
 cd /var/www/processmonitor
-mkdir -p shared/pids shared/sockets shared/log
-bundle install
+mkdir -p /var/www/processmonitor/shared/pids /var/www/processmonitor/shared/sockets /var/www/processmonitor/shared/log
+/var/www/processmonitor/bundle install
 
 echo '#################################################'
 echo '### create unicorn service config for the app'
@@ -102,10 +102,10 @@ sudo ln -s /etc/nginx/sites-available/processmonitor /etc/nginx/sites-enabled/pr
 echo '#################################################'
 echo '### install nginx and configure for the app'
 echo '#################################################'
-RAILS_ENV=production rake db:create 
-RAILS_ENV=production rake db:migrate
-RAILS_ENV=production rake db:seed
-RAILS_ENV=production rake assets:precompile
+/var/www/processmonitor/rake db:create RAILS_ENV=production 
+/var/www/processmonitor/rake db:migrate RAILS_ENV=production 
+/var/www/processmonitor/rake db:seed RAILS_ENV=production 
+/var/www/processmonitor/rake assets:precompile RAILS_ENV=production 
 
 
 
