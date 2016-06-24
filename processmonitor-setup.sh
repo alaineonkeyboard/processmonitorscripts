@@ -27,8 +27,8 @@
 echo '#################################################'
 echo '### update and install dependencies'
 echo '#################################################'
-apt-get update
-apt-get install -y curl git libmysqlclient-dev nodejs
+sudo apt-get update
+sudo apt-get install -y curl git libmysqlclient-dev nodejs
 
 
 echo '#################################################'
@@ -49,13 +49,14 @@ echo '### install mysql-server'
 echo '#################################################'
 
 export DEBIAN_FRONTEND=noninteractive
-apt-get -q -y install mysql-server
-mysqladmin -u root password rootpass # changes root password, or creates if none yet
+sudo apt-get -q -y install mysql-server
+mysqladmin -u root password rootpass 
+# changes root password, or creates if none yet
 
-mysql -uroot -prootpass -e "GRANT ALL PRIVILEGES ON *.* TO 'procmonapp'@’%’ IDENTIFIED BY 'w2e3r4t5'"
-mysql -uroot -prootpass -e "GRANT ALL PRIVILEGES ON *.* TO 'procmonapp'@’localhost’ IDENTIFIED BY 'w2e3r4t5'"
+mysql -uroot -prootpass -e "GRANT ALL PRIVILEGES ON *.* TO 'procmonapp'@'%' IDENTIFIED BY 'w2e3r4t5'"
+mysql -uroot -prootpass -e "GRANT ALL PRIVILEGES ON *.* TO 'procmonapp'@'localhost' IDENTIFIED BY 'w2e3r4t5'"
 
-service mysql restart
+sudo service mysql restart
 
 echo '#################################################'
 echo '### add environment variables to be used by app'
@@ -71,29 +72,32 @@ echo '#################################################'
 echo '### download app from git and bundle gems'
 echo '#################################################'
 
-git clone https://github.com/atuaradil/processmonitor.git processmonitor
-cd /home/deploy/webapps/processmonitor
+git clone https://github.com/atuaradil/processmonitor.git /var/www/processmonitor
+cd /var/www/processmonitor
+mkdir -p shared/pids shared/sockets shared/log
 bundle install
 
 echo '#################################################'
 echo '### create unicorn service config for the app'
 echo '#################################################'
-sudo cat /home/deploy/webapps/processmonitorscripts/unicorn_processmonitor.txt >> /etc/init.d/unicorn_processmonitor 
-# (or copy a file to /etc/init.d)
+sudo cp /var/www/processmonitorscripts/unicorn_processmonitor.txt /etc/init.d/unicorn_processmonitor
 
 sudo chmod 755 /etc/init.d/unicorn_processmonitor
 sudo update-rc.d unicorn_processmonitor defaults
 
-service unicorn_processmonitor start
+sudo service unicorn_processmonitor start
 
 echo '#################################################'
 echo '### install nginx and configure for the app'
 echo '#################################################'
-apt-get -y install nginx
+sudo apt-get -y install nginx
 # ip addr show eth0 | grep inet | awk '{ print $2; }' | sed 's/\/.*$//'
 
-sudo cat /home/deploy/webapps/processmonitorscripts/nginx_default.txt >> /etc/nginx/sites-available/default 
-# (or copy the default file)
+sudo cp /var/www/processmonitorscripts/nginx_processmonitor.txt /etc/nginx/sites-available/processmonitor 
+
+sudo ln -s /etc/nginx/sites-available/processmonitor /etc/nginx/sites-enabled/processmonitor
+
+
 
 echo '#################################################'
 echo '### install nginx and configure for the app'
@@ -105,4 +109,4 @@ RAILS_ENV=production rake assets:precompile
 
 
 
-service nginx restart
+sudo service nginx restart
