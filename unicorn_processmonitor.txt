@@ -15,9 +15,9 @@ set -e
 USAGE="Usage: $0 <start|stop|restart|upgrade|rotate|force-stop>"
 
 # app settings
-USER="deploy"
+USER="root"
 APP_NAME="processmonitor"
-APP_ROOT="/home/$USER/webapps/$APP_NAME"
+APP_ROOT="/var/www/$APP_NAME"
 ENV="production"
 
 # environment settings
