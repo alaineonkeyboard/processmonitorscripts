@@ -17,7 +17,12 @@ $ sudo apt-get -y install git
 
 $ sudo git clone https://github.com/atuaradil/processmonitorscripts.git /var/www/processmonitorscripts
 
+# you should be in the /var/www/processmonitor path when executing the script below
 $ sudo /var/www/processmonitorscripts/processmonitor-setup.sh
 
-# you may need to logout and login again after the installation has finished, due to access 
 
+# get your public ip address in order to determine the address for the app
+$ ip addr show eth0 | grep inet | awk '{ print $2; }' | sed 's/\/.*$//'
+
+## using the ipv4 address, open a browser and go to the address on port 8080
+## example: 10.0.2.15:8080/
