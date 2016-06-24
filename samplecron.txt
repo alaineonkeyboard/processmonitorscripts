@@ -1,0 +1,2 @@
+0 13 * * * echo 'Hello world'
+0 15 * * * echo 'Tea time'

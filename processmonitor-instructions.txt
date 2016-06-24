@@ -5,13 +5,13 @@ If MYSQL prompts for a root password, input 'rootpass'
 
 ### START HERE
 # add to groups
-$ sudo usermod -a -G sudo,www-data,adm,rvm <user> # may need to logout,login
+$ sudo usermod -a -G sudo,www-data,adm,rvm <user> # need to logout,login
 
 $ sudo mkdir -p /var/www/processmonitor
 
 $ cd /var/www/processmonitor
 
-# the script needed to install all the requirements is in git, so we should install git first
+# the script needed to install all the requirements is in git, so we should install git first just to get the files
 
 $ sudo apt-get -y install git
 
@@ -20,3 +20,4 @@ $ sudo git clone https://github.com/atuaradil/processmonitorscripts.git /var/www
 $ sudo /var/www/processmonitorscripts/processmonitor-setup.sh
 
 # you may need to logout and login again after the installation has finished, due to access 
+
